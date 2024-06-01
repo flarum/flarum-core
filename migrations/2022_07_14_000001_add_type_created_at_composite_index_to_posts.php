@@ -19,7 +19,7 @@ return [
 
     'down' => function (Builder $schema) {
         $schema->table('posts', function (Blueprint $table) {
-            $table->index(['type', 'created_at']);
+            $table->dropIndex(['type', 'created_at']);
         });
     }
 ];
