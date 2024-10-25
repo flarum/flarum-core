@@ -18,7 +18,7 @@ class ToMany extends BaseToMany
 {
     use FlarumRelationship;
 
-    public function serializeValue($value, Context $context): mixed
+    public function serializeValue(mixed $value, Context $context): mixed
     {
         if ($value && ! is_array($value) && method_exists($value, 'toArray')) {
             $value = $value->toArray();
