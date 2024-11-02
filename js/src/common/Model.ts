@@ -209,8 +209,6 @@ export default abstract class Model {
       delete attributes.relationships;
     }
 
-    console.log('data', data);
-
     // Before we update the model's data, we should make a copy of the model's
     // old data so that we can revert back to it if something goes awry during
     // persistence.
