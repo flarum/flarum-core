@@ -242,16 +242,7 @@ class DiscussionResource extends AbstractDatabaseResource
     /** @param Discussion $model */
     public function creating(object $model, \Tobyz\JsonApiServer\Context $context): ?object
     {
-        $actor = $context->getActor();
-
-        $model->created_at = Carbon::now();
-        $model->user_id = $actor->id;
-
-        $model->setRelation('user', $actor);
-
-        $model->raise(new Started($model));
-
-        return $model;
+        return Discussion::start(null, $context->getActor());
     }
 
     /** @param Discussion $model */
