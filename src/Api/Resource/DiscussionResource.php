@@ -9,7 +9,6 @@
 
 namespace Flarum\Api\Resource;
 
-use Carbon\Carbon;
 use Flarum\Api\Context;
 use Flarum\Api\Endpoint;
 use Flarum\Api\JsonApi;
@@ -20,7 +19,6 @@ use Flarum\Discussion\Command\ReadDiscussion;
 use Flarum\Discussion\Discussion;
 use Flarum\Discussion\Event\Deleting;
 use Flarum\Discussion\Event\Saving;
-use Flarum\Discussion\Event\Started;
 use Flarum\Http\SlugManager;
 use Flarum\Post\Post;
 use Flarum\Post\PostRepository;
