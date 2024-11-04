@@ -121,7 +121,10 @@ class Discussion extends AbstractModel
     {
         $discussion = new static;
 
-        $discussion->title = $title;
+        if ($title) {
+            $discussion->title = $title;
+        }
+
         $discussion->created_at = Carbon::now();
         $discussion->user_id = $user->id;
 
