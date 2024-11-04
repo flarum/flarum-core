@@ -117,13 +117,9 @@ class Discussion extends AbstractModel
     /**
      * Start a new discussion. Raises the DiscussionWasStarted event.
      */
-    public static function start(?string $title, User $user): static
+    public static function start(?string $title, User $user, self $model = null): static
     {
-        $discussion = new static;
-
-        if ($title) {
-            $discussion->title = $title;
-        }
+        $discussion = $model ?? new static;
 
         $discussion->created_at = Carbon::now();
         $discussion->user_id = $user->id;

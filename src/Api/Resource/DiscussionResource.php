@@ -240,7 +240,7 @@ class DiscussionResource extends AbstractDatabaseResource
     /** @param Discussion $model */
     public function creating(object $model, \Tobyz\JsonApiServer\Context $context): ?object
     {
-        return Discussion::start(null, $context->getActor());
+        return Discussion::start(null, $context->getActor(), $model);
     }
 
     /** @param Discussion $model */
