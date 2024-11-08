@@ -733,7 +733,10 @@ core:
 
     # These translations are used by gambits. Gambit keys must be in snake_case, no spaces.
     gambits:
-      boolean_key: is
+      group_keys:
+        allows: allows
+        has: has
+        is: is
       discussions:
         author:
           key: author
