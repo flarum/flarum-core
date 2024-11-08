@@ -1,11 +1,11 @@
 import type Mithril from 'mithril';
 import type Post from '../../common/models/Post';
-import type { SearchSource } from './Search';
+import type { GlobalSearchSource } from './GlobalSearch';
 /**
  * The `PostsSearchSource` finds and displays post search results in
  * the search dropdown.
  */
-export default class PostsSearchSource implements SearchSource {
+export default class GlobalPostsSearchSource implements GlobalSearchSource {
     protected results: Map<string, Post[]>;
     resource: string;
     title(): string;
