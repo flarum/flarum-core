@@ -93,7 +93,7 @@ export default class ExportRegistry implements IExportRegistry, IChunkRegistry {
   private _revisions: any = null;
   private _webpack_runtimes: any = {
     // @ts-ignore
-    core: __webpack_require__,
+    core: window.testing ? null : __webpack_require__,
   };
 
   add(namespace: string, id: string, object: any): void {
