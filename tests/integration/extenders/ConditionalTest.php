@@ -161,6 +161,27 @@ class ConditionalTest extends TestCase
     }
 
     /** @test */
+    public function conditional_disabled_extension_not_enabled_applies_extender()
+    {
+        $this->extend(
+            (new Extend\Conditional())
+                ->whenExtensionDisabled('flarum-dummy-extension', TestExtender::class)
+        );
+
+        $this->app();
+
+        $response = $this->send(
+            $this->request('GET', '/api', [
+                'authenticatedAs' => 1,
+            ])
+        );
+
+        $payload = json_decode($response->getBody()->getContents(), true);
+
+        $this->assertArrayHasKey('customConditionalAttribute', $payload['data']['attributes']);
+    }
+
+    /** @test */
     public function conditional_does_not_instantiate_extender_if_condition_is_false_using_callable()
     {
         $this->extend(
