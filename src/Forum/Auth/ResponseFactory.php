@@ -62,7 +62,7 @@ class ResponseFactory
         ));
     }
 
-    protected function makeResponse(array $payload): HtmlResponse
+    protected function makeResponse(array $payload): ResponseInterface
     {
         $content = sprintf(
             '<script>window.close(); window.opener.app.authenticationComplete(%s);</script>',
