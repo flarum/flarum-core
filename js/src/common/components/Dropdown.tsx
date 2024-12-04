@@ -93,12 +93,12 @@ export default class Dropdown<CustomAttrs extends IDropdownAttrs = IDropdownAttr
 
       const top = $menu.offset()?.top ?? 0;
       const height = $menu.height() ?? 0;
-      const windowSrollTop = $(window).scrollTop() ?? 0;
+      const windowScrollTop = $(window).scrollTop() ?? 0;
       const windowHeight = $(window).height() ?? 0;
 
       $menu.removeClass('Dropdown-menu--top Dropdown-menu--right');
 
-      $menu.toggleClass('Dropdown-menu--top', top + height > windowSrollTop + windowHeight);
+      $menu.toggleClass('Dropdown-menu--top', top + height > windowScrollTop + windowHeight);
 
       if (($menu.offset()?.top || 0) < 0) {
         $menu.removeClass('Dropdown-menu--top');
