@@ -1,4 +1,4 @@
-<x-mail::html>
+<x-mail::html :greeting="$greeting ?? null" :signoff="$signoff ?? null">
     <x-slot:header>
         <h2>{{ $title ?? $translator->trans('core.email.informational.default_title') }}</h2>
     </x-slot:header>
