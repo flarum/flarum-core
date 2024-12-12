@@ -22,7 +22,7 @@ class Console implements ExtenderInterface
     /**
      * Add a command to the console.
      *
-     * @param class-string<AbstractCommand> $command: ::class attribute of command class, which must extend \Flarum\Console\AbstractCommand.
+     * @param class-string<AbstractCommand|\Illuminate\Console\Command> $command: ::class attribute of command class, which must extend \Flarum\Console\AbstractCommand.
      * @return self
      */
     public function command(string $command): self
@@ -35,7 +35,7 @@ class Console implements ExtenderInterface
     /**
      * Schedule a command to run on an interval.
      *
-     * @param class-string<AbstractCommand> $command: ::class attribute of command class, which must extend Flarum\Console\AbstractCommand.
+     * @param class-string<AbstractCommand|\Illuminate\Console\Command> $command: ::class attribute of command class, which must extend Flarum\Console\AbstractCommand.
      * @param (callable(\Illuminate\Console\Scheduling\Event $event): void)|class-string $callback
      *
      * The callback can be a closure or invokable class, and should accept:
