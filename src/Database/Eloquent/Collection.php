@@ -72,13 +72,14 @@ class Collection extends BaseCollection
             $relation = reset($relation);
         }
 
+        // @phpstan-ignore-next-line
         $models->filter(fn ($model) => ! is_null($model) && ! $model->relationLoaded($name))->load($relation);
 
         if (empty($path)) {
             return;
         }
 
-        $models = $models->pluck($name)->where(fn (mixed $relation) => $relation !== null);
+        $models = $models->pluck($name)->filter();
 
         if ($models->first() instanceof \Illuminate\Support\Collection) {
             $models = $models->collapse();
