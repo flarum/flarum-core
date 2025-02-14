@@ -369,8 +369,8 @@ export default class UserListPage extends AdminPage {
         name: app.translator.trans('core.admin.users.grid.columns.user_actions.title'),
         content: (user: User) => (
           <Dropdown
-            className="User-controls"
-            buttonClassName="Button Button--icon Button--flat"
+            className="UserList-userActions"
+            buttonClassName="Button UserList-userActionsBtn Button--icon Button--flat"
             menuClassName="Dropdown-menu--right"
             icon="fas fa-ellipsis-h"
           >
