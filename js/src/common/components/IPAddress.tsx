@@ -13,7 +13,7 @@ export interface IIPAddressAttrs extends ComponentAttrs {
  * @example
  * <IPAddress ip="127.0.0.1" />
  * @example
- * <IPAddress ip={post.data.attributes.ipAddress} />
+ * <IPAddress ip={post.ipAddress()} />
  */
 export default class IPAddress<CustomAttrs extends IIPAddressAttrs = IIPAddressAttrs> extends Component<CustomAttrs> {
   ip!: string;
@@ -31,7 +31,7 @@ export default class IPAddress<CustomAttrs extends IIPAddressAttrs = IIPAddressA
   viewItems(): ItemList<Mithril.Children> {
     const items = new ItemList<Mithril.Children>();
 
-    items.add('ip', <>{this.ip}</>, 100);
+    items.add('ip', <span className="IPAddress-value">{this.ip}</span>, 100);
 
     return items;
   }

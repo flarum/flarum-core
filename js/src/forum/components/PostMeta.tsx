@@ -8,7 +8,9 @@ import type Model from '../../common/Model';
 import type User from '../../common/models/User';
 import classList from '../../common/utils/classList';
 
-type ModelType = Post | (Model & { user: () => User | null | false; createdAt: () => Date });
+type ModelType =
+  | Post
+  | (Model & { user: () => User | null | false; createdAt: () => Date; ipAddress: undefined | (() => string | null | undefined) });
 
 export interface IPostMetaAttrs extends ComponentAttrs {
   /** Can be a post or similar model like private message */
@@ -53,7 +55,7 @@ export default class PostMeta<CustomAttrs extends IPostMetaAttrs = IPostMetaAttr
           <div className="Dropdown-menu dropdown-menu">
             <span className="PostMeta-number">{this.postIdentifier(post)}</span> <span className="PostMeta-time">{fullTime(time)}</span>{' '}
             <span className="PostMeta-ip">
-              <IPAddress ip={post.data.attributes?.ipAddress} />
+              <IPAddress ip={post.ipAddress?.()} />
             </span>
             {touch ? (
               <a className="Button PostMeta-permalink" href={permalink}>
