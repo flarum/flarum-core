@@ -6,6 +6,7 @@ import type User from '../../common/models/User';
 type ModelType = Post | (Model & {
     user: () => User | null | false;
     createdAt: () => Date;
+    ipAddress: undefined | (() => string | null | undefined);
 });
 export interface IPostMetaAttrs extends ComponentAttrs {
     /** Can be a post or similar model like private message */
