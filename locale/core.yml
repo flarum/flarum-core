@@ -360,11 +360,6 @@ core:
           display_name:
             title: Display name
 
-          edit_user:
-            button: => core.ref.edit
-            title: => core.ref.edit_user
-            tooltip: Edit {username}
-
           email:
             title: => core.ref.email
             visibility_hide: Hide email address
@@ -376,6 +371,12 @@ core:
 
           join_time:
             title: Joined
+
+          user_actions:
+            title: Actions
+            edit_user:
+              button: => core.ref.edit
+              tooltip: Edit {username}
 
           user_id:
             title: ID
