@@ -1,5 +1,6 @@
 @php
   $primaryColor = $settings->get('theme_primary_color', '#000');
+  $time = time();
 @endphp
 
 <!DOCTYPE html>
@@ -9,18 +10,9 @@
     {{-- TODO: Change below to @hasSection when Laravel is upgraded --}}
     <title>@if ($__env->hasSection('title')) @yield('title') - @endif{{ $settings->get('forum_title') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <link rel="stylesheet" href="/assets/forum.css?t={{$time}}">
 
     <style>
-      * {
-       box-sizing: border-box;
-      }
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        font-size: 18px;
-        text-align: center;
-        line-height: 1.5;
-        color: #333;
-      }
       input,
       button,
       select,
@@ -31,7 +23,6 @@
       }
       a {
         cursor: pointer;
-        color: {{ $primaryColor }};
         text-decoration: none;
         font-weight: bold;
       }
@@ -46,8 +37,6 @@
       .button {
         display: inline-block;
         padding: 15px 25px;
-        background: {{ $primaryColor }};
-        color: #fff;
         text-decoration: none;
         text-align: center;
         vertical-align: middle;
@@ -59,10 +48,6 @@
       }
       .button:hover {
         text-decoration: none;
-      }
-      .button:active,
-      .button.active {
-        box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
       }
       .form {
         max-width: 300px;
@@ -77,14 +62,8 @@
         width: 100%;
         text-align: center;
         padding: 15px 20px;
-        background-color: #fff;
-        border: 2px solid #eee;
         border-radius: 4px;
         transition: border-color .15s;
-      }
-      .form-control:focus,
-      .form-control.focus {
-         border-color: {{ $primaryColor }};
       }
       .errors {
         color: #d83e3e;
