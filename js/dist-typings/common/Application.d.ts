@@ -210,10 +210,12 @@ export default class Application {
      */
     currentInitializerExtension: string | null;
     private handledErrors;
+    private beforeMounts;
     load(payload: Application['data']): void;
     protected initialize(): CallableFunction[];
     boot(): void;
-    protected beforeMount(): void;
+    beforeMount(callback: () => void): void;
+    protected runBeforeMount(): void;
     bootExtensions(extensions: Record<string, {
         extend?: IExtender[];
     }>): void;

@@ -87,7 +87,7 @@ export default class AdminApplication extends Application {
     data: AdminApplicationData;
     route: typeof Application.prototype.route & AdminRoutes;
     constructor();
-    protected beforeMount(): void;
+    protected runBeforeMount(): void;
     /**
      * @inheritdoc
      */
