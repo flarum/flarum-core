@@ -306,7 +306,7 @@
         display: none;
       }
 
-      &:hover {
+      &:hover, &:focus {
         ._checkmark {
           display: block;
         }
@@ -315,5 +315,11 @@
         }
       }
     }
+  }
+}
+
+@media @small-phone {
+  .DiscussionListItem-info {
+    max-width: 160px;
   }
 }

@@ -459,6 +459,7 @@ core:
       empty_text: It looks as though there are no discussions here.
       load_more_button: => core.ref.load_more
       replied_text: "{username} replied {ago}"
+      skip_discussion_list_pane: Skip the discussion list pane
       started_text: "{username} started {ago}"
       total_replies_a11y_label: "{count, plural, one {# reply} other {# replies}}"
       unread_replies_a11y_label: "{count, plural, one {# unread reply} other {# unread replies}}. Mark unread {count, plural, one {reply} other {replies}} as read."
@@ -496,6 +497,7 @@ core:
       meta_title_text: => core.ref.all_discussions
       refresh_tooltip: => core.ref.refresh
       start_discussion_button: => core.ref.start_a_discussion
+      skip_to_main_content: Skip to main content
       toggle_sidenav_dropdown_accessible_label: Toggle navigation dropdown menu
 
     # These translations are used by the sorting control above the discussion list.
@@ -910,6 +912,10 @@ core:
       all_discussions_heading: => core.ref.all_discussions
       next_page_button: => core.ref.next_page
       previous_page_button: => core.ref.previous_page
+
+    # Translations in this namespace are displayed by the basic HTML forum layout.
+    layout:
+      skip_to_content: Skip to content
 
     # Translations in this namespace are displayed by the Log Out confirmation interface.
     log_out:

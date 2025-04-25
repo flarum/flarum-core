@@ -76,14 +76,14 @@ export default class DiscussionListItem<CustomAttrs extends IDiscussionListItemA
   viewItems(): ItemList<Mithril.Children> {
     const items = new ItemList<Mithril.Children>();
 
+    items.add('slidableUnderneath', this.slidableUnderneathView(), 90);
+    items.add('content', this.contentView(), 80);
+
     const controls = DiscussionControls.controls(this.attrs.discussion, this).toArray();
 
     if (controls.length) {
-      items.add('controls', this.controlsView(controls), 100);
+      items.add('controls', this.controlsView(controls), 70);
     }
-
-    items.add('slidableUnderneath', this.slidableUnderneathView(), 90);
-    items.add('content', this.contentView(), 80);
 
     return items;
   }
@@ -312,7 +312,7 @@ export default class DiscussionListItem<CustomAttrs extends IDiscussionListItemA
         className="DiscussionListItem-count"
         icon={showUnread ? [<Icon name={'fas fa-check _checkmark'} />, <Icon name={'fas fa-comment _comment'} />] : <Icon name={'far fa-comment'} />}
         label={showUnread ? abbreviateNumber(discussion.unreadCount()) : abbreviateNumber(discussion.replyCount())}
-        a11yLabel={app.translator.trans(a11yKey, { count: discussion.replyCount() })}
+        ariaLabel={app.translator.trans(a11yKey, { count: discussion.unreadCount() })}
         onclick={showUnread ? this.markAsRead.bind(this) : undefined}
       />
     );
