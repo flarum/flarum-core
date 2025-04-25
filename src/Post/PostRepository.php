@@ -60,7 +60,7 @@ class PostRepository
             ->skip($start)
             ->take($count);
 
-        foreach ((array) $sort as $field => $order) {
+        foreach ($sort as $field => $order) {
             $query->orderBy($field, $order);
         }
 

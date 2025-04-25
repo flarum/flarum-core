@@ -23,7 +23,7 @@ class RevisionCompiler implements CompilerInterface
 {
     use HasSources;
 
-    const EMPTY_REVISION = 'empty';
+    public const EMPTY_REVISION = 'empty';
 
     protected VersionerInterface $versioner;
 
@@ -93,7 +93,6 @@ class RevisionCompiler implements CompilerInterface
     }
 
     /**
-     * @param string $file
      * @param SourceInterface[] $sources
      * @return bool true if the file was written, false if there was nothing to write
      */

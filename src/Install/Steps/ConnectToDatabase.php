@@ -24,12 +24,12 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use RangeException;
 
-class ConnectToDatabase implements Step
+readonly class ConnectToDatabase implements Step
 {
     public function __construct(
-        private readonly DatabaseConfig $dbConfig,
-        private readonly Closure $store,
-        private readonly string $basePath
+        private DatabaseConfig $dbConfig,
+        private Closure $store,
+        private string $basePath
     ) {
     }
 

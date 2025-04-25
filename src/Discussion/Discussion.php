@@ -283,8 +283,6 @@ class Discussion extends AbstractModel
     /**
      * Query the discussion's participants (a list of unique users who have
      * posted in the discussion).
-     *
-     * @return Builder
      */
     public function participants(): Builder
     {

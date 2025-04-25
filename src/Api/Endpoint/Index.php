@@ -43,7 +43,6 @@ class Index extends Endpoint
     use HasCustomHooks;
 
     public Closure $paginationResolver;
-    public ?string $defaultSort = null;
     protected ?Closure $query = null;
 
     public function __construct(string $name)

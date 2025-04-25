@@ -20,7 +20,7 @@ class DatabaseConfig implements Arrayable
         private readonly int $port,
         private string $database,
         private readonly ?string $username,
-        private readonly ?string $password,
+        #[\SensitiveParameter] private readonly ?string $password,
         private readonly ?string $prefix
     ) {
         $this->validate();
@@ -46,11 +46,11 @@ class DatabaseConfig implements Arrayable
             throw new ValidationFailed('Currently, only MySQL, MariaDB, SQLite and PostgreSQL are supported.');
         }
 
-        if (in_array($this->driver, ['mysql', 'mariadb', 'pgsql']) && empty($this->host)) {
+        if (empty($this->host) && in_array($this->driver, ['mysql', 'mariadb', 'pgsql'])) {
             throw new ValidationFailed('Please specify the hostname of your database server.');
         }
 
-        if (in_array($this->driver, ['mysql', 'mariadb', 'pgsql']) && ($this->port < 1 || $this->port > 65535)) {
+        if (($this->port < 1 || $this->port > 65535) && in_array($this->driver, ['mysql', 'mariadb', 'pgsql'])) {
             throw new ValidationFailed('Please provide a valid port number between 1 and 65535.');
         }
 
@@ -58,7 +58,7 @@ class DatabaseConfig implements Arrayable
             throw new ValidationFailed('Please specify the database name.');
         }
 
-        if (in_array($this->driver, ['mysql', 'mariadb', 'pgsql']) && empty($this->username)) {
+        if (empty($this->username) && in_array($this->driver, ['mysql', 'mariadb', 'pgsql'])) {
             throw new ValidationFailed('Please specify the username for accessing the database.');
         }
 

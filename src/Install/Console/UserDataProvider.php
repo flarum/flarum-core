@@ -54,7 +54,7 @@ class UserDataProvider implements DataProviderInterface
             $host = $this->ask('Database host (required):', required: true);
 
             if (Str::contains($host, ':')) {
-                list($host, $port) = explode(':', $host, 2);
+                [$host, $port] = explode(':', $host, 2);
             }
 
             $user = $this->ask('Database user (required):', required: true);

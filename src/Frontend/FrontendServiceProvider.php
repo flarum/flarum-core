@@ -141,7 +141,7 @@ class FrontendServiceProvider extends AbstractServiceProvider
         $this->container->singleton(
             'flarum.frontend.custom_less_functions',
             function (Container $container) {
-                $extensionsEnabled = json_decode($container->make(SettingsRepositoryInterface::class)->get('extensions_enabled'));
+                $extensionsEnabled = json_decode($container->make(SettingsRepositoryInterface::class)->get('extensions_enabled'), associative: true);
 
                 // Please note that these functions do not go through the same transformation which the Theme extender's
                 // `addCustomLessFunction` method does. You'll need to use the correct Less tree return type, and get

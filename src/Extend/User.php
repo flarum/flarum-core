@@ -25,7 +25,6 @@ class User implements ExtenderInterface
      *
      * @param string $identifier: Identifier for display name driver. E.g. 'username' for UserNameDriver
      * @param class-string<DriverInterface> $driver: ::class attribute of driver class, which must implement Flarum\User\DisplayName\DriverInterface
-     * @return self
      */
     public function displayNameDriver(string $identifier, string $driver): self
     {
@@ -47,8 +46,6 @@ class User implements ExtenderInterface
      *
      * The callable should return:
      * - array $groupIds: an array of ids for the groups the user belongs to.
-     *
-     * @return self
      */
     public function permissionGroups(callable|string $callback): self
     {
@@ -60,10 +57,7 @@ class User implements ExtenderInterface
     /**
      * Register a new user preference.
      *
-     * @param string $key
-     * @param callable|null $transformer
      * @param mixed|null $default
-     * @return self
      */
     public function registerPreference(string $key, ?callable $transformer = null, mixed $default = null): self
     {

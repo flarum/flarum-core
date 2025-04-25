@@ -38,7 +38,6 @@ class Conditional implements ExtenderInterface
      *
      * @param string $extensionId The ID of the extension.
      * @param callable|string $extenders A callable returning an array of extenders, or an invokable class string.
-     * @return self
      */
     public function whenExtensionEnabled(string $extensionId, callable|string $extenders): self
     {
@@ -52,7 +51,6 @@ class Conditional implements ExtenderInterface
      *
      * @param string $extensionId The ID of the extension.
      * @param callable|string $extenders A callable returning an array of extenders, or an invokable class string.
-     * @return self
      */
     public function whenExtensionDisabled(string $extensionId, callable|string $extenders): self
     {
@@ -67,7 +65,6 @@ class Conditional implements ExtenderInterface
      * @param bool|callable $condition A boolean or callable that should return a boolean.
      *                                 If this evaluates to true, the extenders will be applied.
      * @param callable|string $extenders A callable returning an array of extenders, or an invokable class string.
-     * @return self
      */
     public function when(callable|bool $condition, callable|string $extenders): self
     {
@@ -81,10 +78,6 @@ class Conditional implements ExtenderInterface
 
     /**
      * Iterates over the conditions and applies the associated extenders if the conditions are met.
-     *
-     * @param Container $container
-     * @param Extension|null $extension
-     * @return void
      */
     public function extend(Container $container, ?Extension $extension = null): void
     {

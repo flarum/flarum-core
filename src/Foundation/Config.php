@@ -16,10 +16,10 @@ use Laminas\Diactoros\Uri;
 use Psr\Http\Message\UriInterface;
 use RuntimeException;
 
-class Config implements ArrayAccess
+readonly class Config implements ArrayAccess
 {
     public function __construct(
-        private readonly array $data
+        private array $data
     ) {
         $this->requireKeys('url');
     }

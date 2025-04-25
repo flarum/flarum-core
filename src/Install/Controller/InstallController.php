@@ -85,7 +85,7 @@ class InstallController implements RequestHandlerInterface
         };
 
         if (Str::contains($host, ':')) {
-            list($host, $port) = explode(':', $host, 2);
+            [$host, $port] = explode(':', $host, 2);
         }
 
         return new DatabaseConfig(

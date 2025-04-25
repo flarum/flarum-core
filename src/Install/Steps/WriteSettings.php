@@ -14,11 +14,11 @@ use Flarum\Install\Step;
 use Flarum\Settings\DatabaseSettingsRepository;
 use Illuminate\Database\ConnectionInterface;
 
-class WriteSettings implements Step
+readonly class WriteSettings implements Step
 {
     public function __construct(
-        private readonly ConnectionInterface $database,
-        private readonly array $custom
+        private ConnectionInterface $database,
+        private array $custom
     ) {
     }
 

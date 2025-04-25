@@ -87,7 +87,7 @@ class User extends AbstractModel
      *
      * @var string[]|null
      */
-    protected $permissions = null;
+    protected ?array $permissions = null;
 
     /**
      * An array of callables, through each of which the user's list of groups is passed
@@ -207,7 +207,7 @@ class User extends AbstractModel
         return $this;
     }
 
-    public function changePassword(string $password): static
+    public function changePassword(#[\SensitiveParameter] string $password): static
     {
         $this->password = $password;
 
@@ -267,7 +267,7 @@ class User extends AbstractModel
         return static::$displayNameDriver->displayName($this);
     }
 
-    public function checkPassword(string $password): bool
+    public function checkPassword(#[\SensitiveParameter] string $password): bool
     {
         $valid = false;
 
@@ -276,7 +276,9 @@ class User extends AbstractModel
 
             if ($result === false) {
                 return false;
-            } elseif ($result === true) {
+            }
+
+            if ($result === true) {
                 $valid = true;
             }
         }
@@ -315,7 +317,7 @@ class User extends AbstractModel
         }
 
         foreach ($this->getPermissions() as $permission) {
-            if (substr($permission, -strlen($match)) === $match) {
+            if (str_ends_with($permission, $match)) {
                 return true;
             }
         }
@@ -351,9 +353,6 @@ class User extends AbstractModel
             ->whereSubjectVisibleTo($this);
     }
 
-    /**
-     * @return Collection
-     */
     protected function getUnreadNotifications(): Collection
     {
         return $this->unreadNotifications()->get();
@@ -423,7 +422,7 @@ class User extends AbstractModel
             $preferences = $this->preferences;
 
             if (! is_null($transformer = static::$preferences[$key]['transformer'])) {
-                $preferences[$key] = call_user_func($transformer, $value);
+                $preferences[$key] = $transformer($value);
             } else {
                 $preferences[$key] = $value;
             }
@@ -573,8 +572,6 @@ class User extends AbstractModel
     /**
      * Define the relationship with the permissions of all the groups that
      * the user is in.
-     *
-     * @return Builder
      */
     public function permissions(): Builder
     {
