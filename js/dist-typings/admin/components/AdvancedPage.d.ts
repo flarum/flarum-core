@@ -24,5 +24,6 @@ export default class AdvancedPage<CustomAttrs extends IPageAttrs = IPageAttrs> e
     queueDatabaseSettings(): ItemList<Mithril.Children>;
     queueCustomContent(): JSX.Element;
     pgsqlSettings(): JSX.Element;
+    fontAwesome(): JSX.Element;
     static register(): void;
 }
