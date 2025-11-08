@@ -13,6 +13,7 @@ use Flarum\Database\AbstractModel;
 use Flarum\Extension\ExtensionManager;
 use Flarum\Foundation\ApplicationInfoProvider;
 use Flarum\Foundation\Config;
+use Flarum\Foundation\FontAwesome;
 use Flarum\Foundation\MaintenanceMode;
 use Flarum\Frontend\Document;
 use Flarum\Group\Permission;
@@ -37,7 +38,8 @@ class AdminPayload
         protected Dispatcher $events,
         protected Config $config,
         protected ApplicationInfoProvider $appInfo,
-        protected MaintenanceMode $maintenance
+        protected MaintenanceMode $maintenance,
+        protected FontAwesome $fontAwesome
     ) {
     }
 
@@ -83,6 +85,17 @@ class AdminPayload
         $document->payload['maintenanceByConfig'] = $this->maintenance->configOverride();
         $document->payload['safeModeExtensions'] = $this->maintenance->safeModeExtensions();
         $document->payload['safeModeExtensionsConfig'] = $this->config->safeModeExtensions();
+
+        $document->payload['fontawesomeByConfig'] = $this->fontAwesome->configOverride();
+
+        // If FontAwesome is configured via config.php, pass the actual config values to frontend
+        if ($this->fontAwesome->configOverride()) {
+            $document->payload['fontawesomeConfig'] = [
+                'source' => $this->fontAwesome->source(),
+                'cdn_url' => $this->fontAwesome->cdnUrl(),
+                'kit_url' => $this->fontAwesome->kitUrl(),
+            ];
+        }
     }
 
     protected function getSearchDrivers(): array
