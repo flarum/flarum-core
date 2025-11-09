@@ -78,6 +78,7 @@ import './components/AutocompleteDropdown';
 import './components/GambitsAutocompleteDropdown';
 import './components/UploadImageButton';
 import './components/FormGroup';
+import './components/IPAddress';
 import './helpers/fullTime';
 import './components/Avatar';
 import './helpers/humanTime';
