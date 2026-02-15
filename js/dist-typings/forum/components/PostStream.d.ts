@@ -85,6 +85,57 @@ export default class PostStream extends Component<import("../../common/Component
      * @return {JQueryDeferred}
      */
     scrollToItem($item: JQuery, animate: boolean, force: boolean, reply: boolean): JQueryDeferred<any>;
+    settling: boolean | undefined;
+    settlingTarget: any;
+    settlingHardTimer: NodeJS.Timeout | null | undefined;
+    /**
+     * Set up a ResizeObserver that watches `.PostStream-item` elements for size
+     * changes. During the "settling" phase (after a programmatic scroll), any
+     * observed resize triggers an immediate re-scroll to the target post so the
+     * viewport stays locked on it while asynchronous content loads.
+     */
+    setupScrollAnchoring(): void;
+    settlingStabilityTimer: NodeJS.Timeout | null | undefined;
+    observedElements: Set<any> | null | undefined;
+    resizeObserver: ResizeObserver | null | undefined;
+    /**
+     * Re-scroll to the locked target post. Uses the same offset logic as
+     * scrollToItem's post-load adjustment. Called synchronously from the
+     * ResizeObserver callback so the correction is applied before the browser
+     * paints, preventing visible flicker.
+     */
+    reScrollToTarget(): void;
+    /**
+     * Register global event listeners that end settling when the user takes
+     * control (scrolling, touching, or pressing a key).
+     */
+    startSettlingListeners(): void;
+    _onUserInteraction: (() => void) | null | undefined;
+    /**
+     * Remove the user-interaction listeners registered by startSettlingListeners.
+     */
+    stopSettlingListeners(): void;
+    /**
+     * Reset (or start) the stability timer. If no ResizeObserver callback fires
+     * within 3 seconds, we consider the layout stable and exit settling.
+     */
+    resetStabilityTimer(): void;
+    /**
+     * Exit settling mode: stop watching for layout shifts, remove listeners,
+     * clear timers, and update the URL/scrubber to match the final viewport.
+     */
+    endSettling(): void;
+    /**
+     * Observe any newly-rendered `.PostStream-item` elements that are not yet
+     * tracked. Called on every `onupdate` to pick up items added by infinite
+     * scroll or lazy loading.
+     */
+    observeNewPostItems(): void;
+    /**
+     * Disconnect the ResizeObserver, end settling mode, and release tracked data.
+     * Called from `onremove` to prevent memory leaks.
+     */
+    cleanupScrollAnchoring(): void;
     /**
      * 'Flash' the given post, drawing the user's attention to it.
      *
