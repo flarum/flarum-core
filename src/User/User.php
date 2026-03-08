@@ -20,7 +20,8 @@ use Flarum\Group\Permission;
 use Flarum\Http\AccessToken;
 use Flarum\Notification\Notification;
 use Flarum\Post\Post;
-use Flarum\User\DisplayName\DriverInterface;
+use Flarum\User\Avatar\DriverInterface as AvatarDriver;
+use Flarum\User\DisplayName\DriverInterface as DisplayNameDriver;
 use Flarum\User\Event\Activated;
 use Flarum\User\Event\AvatarChanged;
 use Flarum\User\Event\Deleted;
@@ -111,7 +112,12 @@ class User extends AbstractModel
     /**
      * A driver for getting display names.
      */
-    protected static DriverInterface $displayNameDriver;
+    protected static DisplayNameDriver $displayNameDriver;
+
+    /**
+     * A driver for getting avatar URLs.
+     */
+    protected static AvatarDriver $avatarDriver;
 
     /**
      * The hasher with which to hash passwords.
@@ -165,9 +171,17 @@ class User extends AbstractModel
         static::$gate = $gate;
     }
 
-    public static function setDisplayNameDriver(DriverInterface $driver): void
+    public static function setDisplayNameDriver(DisplayNameDriver $driver): void
     {
         static::$displayNameDriver = $driver;
+    }
+
+    /**
+     * Set the avatar driver.
+     */
+    public static function setAvatarDriver(AvatarDriver $driver): void
+    {
+        static::$avatarDriver = $driver;
     }
 
     public static function setPasswordCheckers(array $checkers): void
@@ -253,13 +267,21 @@ class User extends AbstractModel
         return $this;
     }
 
+    /**
+     * Determine whether the user has uploaded a custom avatar.
+     */
+    public function getHasUploadedAvatarAttribute(): bool
+    {
+        return isset($this->attributes['avatar_url']);
+    }
+
     public function getAvatarUrlAttribute(?string $value = null): ?string
     {
         if ($value && ! str_contains($value, '://')) {
             return resolve(Factory::class)->disk('flarum-avatars')->url($value);
         }
 
-        return $value;
+        return $value ?? static::$avatarDriver->avatarUrl($this);
     }
 
     public function getDisplayNameAttribute(): string

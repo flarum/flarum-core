@@ -61,6 +61,7 @@ export interface AdminApplicationData extends ApplicationData {
   settings: Record<string, string>;
   modelStatistics: Record<string, { total: number }>;
   displayNameDrivers: string[];
+  avatarDrivers: string[];
   slugDrivers: Record<string, string[]>;
   searchDrivers: Record<string, string[]>;
   permissions: Record<string, string[]>;

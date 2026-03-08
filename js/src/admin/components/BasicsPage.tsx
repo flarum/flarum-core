@@ -10,6 +10,7 @@ import extractText from '../../common/utils/extractText';
 export type HomePageItem = { path: string; label: Mithril.Children };
 export type DriverLocale = {
   display_name: Record<string, string>;
+  avatar: Record<string, string>;
   slug: Record<string, Record<string, string>>;
 };
 
@@ -58,6 +59,9 @@ export default class BasicsPage<CustomAttrs extends IPageAttrs = IPageAttrs> ext
       display_name: {
         username: extractText(app.translator.trans('core.admin.basics.display_name_driver_options.username')),
       },
+      avatar: {
+        default: extractText(app.translator.trans('core.admin.basics.avatar_driver_options.default')),
+      },
       slug: {
         'Flarum\\Discussion\\Discussion': {
           default: extractText(app.translator.trans('core.admin.basics.slug_driver_options.discussions.default')),
@@ -82,6 +86,7 @@ export default class BasicsPage<CustomAttrs extends IPageAttrs = IPageAttrs> ext
 
     const localeOptions: Record<string, string> = {};
     const displayNameOptions: Record<string, string> = {};
+    const avatarDriverOptions: Record<string, string> = {};
     const slugDriverOptions: Record<string, Record<string, string>> = {};
 
     const driverLocale = BasicsPage.driverLocale();
@@ -92,6 +97,10 @@ export default class BasicsPage<CustomAttrs extends IPageAttrs = IPageAttrs> ext
 
     app.data.displayNameDrivers.forEach((identifier) => {
       displayNameOptions[identifier] = driverLocale.display_name[identifier] || identifier;
+    });
+
+    app.data.avatarDrivers.forEach((identifier) => {
+      avatarDriverOptions[identifier] = driverLocale.avatar[identifier] || identifier;
     });
 
     Object.keys(app.data.slugDrivers).forEach((model) => {
@@ -166,6 +175,16 @@ export default class BasicsPage<CustomAttrs extends IPageAttrs = IPageAttrs> ext
         options: displayNameOptions,
         label: app.translator.trans('core.admin.basics.display_name_heading'),
         help: app.translator.trans('core.admin.basics.display_name_text'),
+      });
+    }
+
+    if (Object.keys(avatarDriverOptions).length > 1) {
+      app.registry.registerSetting({
+        type: 'select',
+        setting: 'avatar_driver',
+        options: avatarDriverOptions,
+        label: app.translator.trans('core.admin.basics.avatar_driver_heading'),
+        help: app.translator.trans('core.admin.basics.avatar_driver_text'),
       });
     }
 
