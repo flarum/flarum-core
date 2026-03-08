@@ -8,6 +8,7 @@ export type HomePageItem = {
 };
 export type DriverLocale = {
     display_name: Record<string, string>;
+    avatar: Record<string, string>;
     slug: Record<string, Record<string, string>>;
 };
 export default class BasicsPage<CustomAttrs extends IPageAttrs = IPageAttrs> extends AdminPage<CustomAttrs> {

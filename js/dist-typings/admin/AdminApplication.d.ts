@@ -50,6 +50,7 @@ export interface AdminApplicationData extends ApplicationData {
         total: number;
     }>;
     displayNameDrivers: string[];
+    avatarDrivers: string[];
     slugDrivers: Record<string, string[]>;
     searchDrivers: Record<string, string[]>;
     permissions: Record<string, string[]>;

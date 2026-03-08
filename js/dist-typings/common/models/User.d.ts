@@ -10,6 +10,7 @@ export default class User extends Model {
     email(): string | undefined;
     isEmailConfirmed(): boolean | undefined;
     password(): string | undefined;
+    hasUploadedAvatar(): boolean;
     avatarUrl(): string | null;
     preferences(): Record<string, any> | null | undefined;
     groups(): false | (Group | undefined)[];
