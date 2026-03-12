@@ -103,4 +103,22 @@ class AvatarUploaderTest extends TestCase
 
         $this->assertNotEquals('ABCDEFGHabcdefgh.png', $user->getRawOriginal('avatar_url'));
     }
+
+    public function test_upload_stores_webp_for_static_images()
+    {
+        $this->filesystem->shouldReceive('put')->once();
+        $this->filesystem->shouldIgnoreMissing();
+
+        $user = new User();
+
+        $this->uploader->upload($user, ImageManager::gd()->create(50, 50));
+
+        // Simulate saving
+        foreach ($user->releaseAfterSaveCallbacks() as $callback) {
+            $callback($user);
+        }
+        $user->syncOriginal();
+
+        $this->assertStringEndsWith('.webp', $user->getRawOriginal('avatar_url'));
+    }
 }
