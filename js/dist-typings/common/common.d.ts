@@ -36,6 +36,7 @@ import './utils/focusTrap';
 import './utils/isDark';
 import './utils/KeyboardNavigatable';
 import './utils/generateElementId';
+import './utils/haptic';
 import './models/Notification';
 import './models/User';
 import './models/Post';
