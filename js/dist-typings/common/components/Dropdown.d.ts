@@ -1,3 +1,4 @@
+/// <reference types="dom-close-watcher" />
 import Component, { ComponentAttrs } from '../Component';
 import type Mithril from 'mithril';
 export interface IDropdownAttrs extends ComponentAttrs {
@@ -33,6 +34,7 @@ export interface IDropdownAttrs extends ComponentAttrs {
  */
 export default class Dropdown<CustomAttrs extends IDropdownAttrs = IDropdownAttrs> extends Component<CustomAttrs> {
     protected showing: boolean;
+    protected closeWatcher?: CloseWatcher;
     static initAttrs(attrs: IDropdownAttrs): void;
     view(vnode: Mithril.Vnode<CustomAttrs, this>): JSX.Element;
     oncreate(vnode: Mithril.VnodeDOM<CustomAttrs, this>): void;

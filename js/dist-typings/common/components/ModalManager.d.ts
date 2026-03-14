@@ -1,3 +1,4 @@
+/// <reference types="dom-close-watcher" />
 import Component from '../Component';
 import { FocusTrap } from '../utils/focusTrap';
 import type ModalManagerState from '../states/ModalManagerState';
@@ -13,6 +14,8 @@ interface IModalManagerAttrs {
 export default class ModalManager extends Component<IModalManagerAttrs> {
     protected focusTrap: FocusTrap | undefined;
     protected lastSetFocusTrap: number | undefined;
+    protected closeWatcher: CloseWatcher | undefined;
+    protected lastCloseWatcherKey: number | undefined;
     protected modalClosing: boolean;
     protected keyUpListener: null | ((e: KeyboardEvent) => void);
     view(vnode: Mithril.VnodeDOM<IModalManagerAttrs, this>): Mithril.Children;

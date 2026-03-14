@@ -9,6 +9,10 @@ export default class Drawer {
      */
     focusTrap: import('./focusTrap').FocusTrap;
     /**
+     * @type {?CloseWatcher}
+     */
+    closeWatcher: CloseWatcher | null;
+    /**
      * @type {HTMLDivElement}
      */
     appElement: HTMLDivElement;

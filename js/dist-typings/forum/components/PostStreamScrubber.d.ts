@@ -19,6 +19,8 @@ export default class PostStreamScrubber extends Component<import("../../common/C
     lastPostLabel(): string | any[];
     onupdate(vnode: any): void;
     oncreate(vnode: any): void;
+    closeWatcher: CloseWatcher | undefined;
+    showing: boolean | undefined;
     dragging: boolean | undefined;
     mouseStart: any;
     indexStart: any;
