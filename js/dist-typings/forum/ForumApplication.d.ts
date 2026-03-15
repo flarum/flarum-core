@@ -68,13 +68,4 @@ export default class ForumApplication extends Application {
      * Check whether or not the user is currently viewing a discussion.
      */
     viewingDiscussion(discussion: Discussion): boolean;
-    /**
-     * Callback for when an external authenticator (social login) action has
-     * completed.
-     *
-     * If the payload indicates that the user has been logged in, then the page
-     * will be reloaded. Otherwise, a SignUpModal will be opened, prefilled
-     * with the provided details.
-     */
-    authenticationComplete(payload: Record<string, unknown>): void;
 }
