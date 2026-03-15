@@ -149,20 +149,4 @@ export default class ForumApplication extends Application {
   public viewingDiscussion(discussion: Discussion): boolean {
     return this.current.matches(DiscussionPage, { discussion });
   }
-
-  /**
-   * Callback for when an external authenticator (social login) action has
-   * completed.
-   *
-   * If the payload indicates that the user has been logged in, then the page
-   * will be reloaded. Otherwise, a SignUpModal will be opened, prefilled
-   * with the provided details.
-   */
-  public authenticationComplete(payload: Record<string, unknown>): void {
-    if (payload.loggedIn) {
-      window.location.reload();
-    } else {
-      this.modal.show(() => import('./components/SignUpModal'), payload);
-    }
-  }
 }
