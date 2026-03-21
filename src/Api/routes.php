@@ -62,6 +62,19 @@ return function (RouteCollection $map, RouteHandlerFactory $route) {
 
     /*
     |--------------------------------------------------------------------------
+    | Groups
+    |--------------------------------------------------------------------------
+    */
+
+    // Change order of groups
+    $map->post(
+        '/groups/order',
+        'groups.order',
+        $route->toController(Controller\OrderGroupsController::class)
+    );
+
+    /*
+    |--------------------------------------------------------------------------
     | Notifications
     |--------------------------------------------------------------------------
     */
