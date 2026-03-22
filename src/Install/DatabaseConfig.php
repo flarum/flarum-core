@@ -19,6 +19,7 @@ class DatabaseConfig implements Arrayable
         private readonly ?string $host,
         private readonly int $port,
         private string $database,
+        private readonly ?string $schema,
         private readonly ?string $username,
         #[\SensitiveParameter] private readonly ?string $password,
         private readonly ?string $prefix
@@ -56,6 +57,10 @@ class DatabaseConfig implements Arrayable
 
         if (empty($this->database)) {
             throw new ValidationFailed('Please specify the database name.');
+        }
+
+        if (empty($this->schema) && $this->driver == 'pgsql') {
+            throw new ValidationFailed('Please specify the schema name.');
         }
 
         if (empty($this->username) && in_array($this->driver, ['mysql', 'mariadb', 'pgsql'])) {
@@ -100,7 +105,7 @@ class DatabaseConfig implements Arrayable
                 'username' => $this->username,
                 'password' => $this->password,
                 'charset' => 'utf8',
-                'search_path' => 'public',
+                'search_path' => $this->schema,
                 'sslmode' => 'prefer',
             ],
             'sqlite' => [
