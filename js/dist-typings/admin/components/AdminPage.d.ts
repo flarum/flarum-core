@@ -29,6 +29,7 @@ export type SaveSubmitEvent = SubmitEvent & {
 };
 export default abstract class AdminPage<CustomAttrs extends IPageAttrs = IPageAttrs> extends Page<CustomAttrs> {
     settings: MutableSettings;
+    settingLabels: Record<string, Mithril.Children>;
     refreshAfterSaving: string[];
     loading: boolean;
     view(vnode: Mithril.Vnode<CustomAttrs, this>): Mithril.Children;
@@ -42,6 +43,14 @@ export default abstract class AdminPage<CustomAttrs extends IPageAttrs = IPageAt
      * Calls `this.saveSettings` when the button is clicked.
      */
     submitButton(): Mithril.Children;
+    /**
+     * Returns a button that opens a confirmation modal to delete all settings
+     * tracked by this page from the database, reverting them to their PHP-side defaults.
+     *
+     * Calls can pass an explicit list of setting keys to reset; otherwise all keys
+     * currently tracked in `this.settings` are used.
+     */
+    resetButton(settings?: import('./ResetExtensionSettingsModal').ResetSettingItem[], title?: string, extensionId?: string): Mithril.Children;
     /**
      * Returns the Header component for this AdminPage.
      */
@@ -99,8 +108,11 @@ export default abstract class AdminPage<CustomAttrs extends IPageAttrs = IPageAt
     onsavefailed(): void;
     /**
      * Returns a function that fetches the setting from the `app` global.
+     *
+     * An optional `label` can be provided to associate a human-readable label
+     * with the setting key, which is used by `resetButton()` in the reset modal.
      */
-    setting(key: string, fallback?: string): Stream<string>;
+    setting(key: string, fallback?: string, label?: Mithril.Children): Stream<string>;
     /**
      * Returns a map of settings keys to values which includes only those which have been modified but not yet saved.
      */
