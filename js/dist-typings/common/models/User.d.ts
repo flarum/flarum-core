@@ -12,6 +12,7 @@ export default class User extends Model {
     password(): string | undefined;
     hasUploadedAvatar(): boolean;
     avatarUrl(): string | null;
+    avatarSrcset(): string | null;
     preferences(): Record<string, any> | null | undefined;
     groups(): false | (Group | undefined)[];
     isAdmin(): boolean | undefined;
