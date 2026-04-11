@@ -11,6 +11,7 @@ namespace Flarum\User;
 
 use Carbon\Carbon;
 use Flarum\Database\AbstractModel;
+use Flarum\User\Exception\InvalidConfirmationTokenException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
@@ -40,6 +41,23 @@ class PasswordToken extends AbstractModel
         $token->token = Str::random(40);
         $token->user_id = $userId;
         $token->created_at = Carbon::now();
+
+        return $token;
+    }
+
+    /**
+     * Find the token with the given ID, and assert that it has not expired.
+     *
+     * @throws InvalidConfirmationTokenException
+     */
+    public static function validOrFail(string $id): static
+    {
+        /** @var static|null $token */
+        $token = static::find($id);
+
+        if (! $token || $token->created_at->diffInDays(null, true) >= 1) {
+            throw new InvalidConfirmationTokenException;
+        }
 
         return $token;
     }
