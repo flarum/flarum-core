@@ -9,27 +9,60 @@
 
 namespace Flarum\Http;
 
+use Bitworking\Mimeparse;
 use Flarum\User\User;
-use Illuminate\Support\Str;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Tobyz\JsonApiServer\Exception\BadRequestException;
 
 class RequestUtil
 {
+    /**
+     * Determine if the request is an API request. We do not manually set the `Accepts` header
+     * for API requests, so we need to check the priority list to determine whether it is or not.
+     * Normal browsing requests will have `text/html` as their preferred content type, while API will have `* / *`.
+     */
     public static function isApiRequest(Request $request): bool
     {
-        return Str::contains(
-            $request->getHeaderLine('Accept'),
-            'application/vnd.api+json'
+        $preferred = self::getPreferredContentType(
+            $request,
+            ['application/vnd.api+json', 'application/json', 'text/html']
         );
+
+        return in_array($preferred, ['application/vnd.api+json', 'application/json'], true);
     }
 
     public static function isHtmlRequest(Request $request): bool
     {
-        return Str::contains(
-            $request->getHeaderLine('Accept'),
-            'text/html'
-        );
+        return ! self::isApiRequest($request);
+    }
+
+    /**
+     * Determine the client's preferred content type out of the given list.
+     *
+     * @param Request $request
+     * @param array $types The content types to check against, in order of priority. The best match will be returned.
+     * @return string The best matching type, or an empty string if none could be determined.
+     */
+    public static function getPreferredContentType(Request $request, array $types): string
+    {
+        $accept = $request->getHeaderLine('Accept');
+
+        // We get some errors if $accept is empty, so we need to check for that and set it to */* if it is.
+        if (! filled($accept)) {
+            $accept = '*/*';
+        }
+
+        // This is called from the error handler, so it must never throw or emit noise.
+        // `bestMatch()` returns null when nothing matches, and on a malformed Accept
+        // header (e.g. a media range without a subtype) it emits a warning and then
+        // throws. The `@` swallows that warning and the catch swallows the exception;
+        // in either case we fall back to an empty string, which callers treat as
+        // "no preference" (i.e. not an API request).
+        try {
+            return @Mimeparse::bestMatch($types, $accept) ?? '';
+        } catch (\UnexpectedValueException) {
+            return '';
+        }
     }
 
     public static function getActor(Request $request): User
