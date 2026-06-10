@@ -39,6 +39,7 @@ export interface Extension {
 }
 export declare enum DatabaseDriver {
     MySQL = "MySQL",
+    MariaDB = "MariaDB",
     PostgreSQL = "PostgreSQL",
     SQLite = "SQLite"
 }
