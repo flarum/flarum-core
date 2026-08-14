@@ -24,6 +24,15 @@ class PhpExtensions implements PrerequisiteInterface
     {
         return (new Collection($this->extensions))
             ->reject(function ($extension) {
+                if (strpos($extension, '|') !== false) {
+                    return (bool) count(array_filter(
+                        explode('|', $extension),
+                        function ($currentExtension) {
+                            return extension_loaded($currentExtension);
+                        }
+                    ));
+                }
+
                 return extension_loaded($extension);
             })->map(function ($extension) {
                 return [
