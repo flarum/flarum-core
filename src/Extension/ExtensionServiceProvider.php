@@ -19,6 +19,7 @@ use GuzzleHttp\Client;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Queue;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ExtensionServiceProvider extends AbstractServiceProvider
@@ -34,7 +35,8 @@ class ExtensionServiceProvider extends AbstractServiceProvider
                 $container->make('flarum.settings'),
                 new Client(),
                 $container->make(Queue::class),
-                $container->make(TranslatorInterface::class)
+                $container->make(TranslatorInterface::class),
+                $container->make(LoggerInterface::class),
             );
         });
 
