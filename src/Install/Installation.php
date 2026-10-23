@@ -106,7 +106,7 @@ class Installation
             new Prerequisite\PhpVersion('7.2.0'),
             new Prerequisite\PhpExtensions([
                 'dom',
-                'gd',
+                'gd|imagick',
                 'json',
                 'mbstring',
                 'openssl',

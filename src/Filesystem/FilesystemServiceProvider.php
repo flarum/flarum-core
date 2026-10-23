@@ -72,7 +72,7 @@ class FilesystemServiceProvider extends AbstractServiceProvider
             $config = $this->container->make(Config::class);
 
             $intervention = $config->offsetGet('intervention');
-            $driver = Arr::get($intervention, 'driver', self::INTERVENTION_DRIVERS['gd']);
+            $driver = Arr::get($intervention, 'driver', self::INTERVENTION_DRIVERS['imagick']);
 
             // Check that the imagick library is actually available, else default back to gd.
             if ($driver === self::INTERVENTION_DRIVERS['imagick'] && ! extension_loaded(self::INTERVENTION_DRIVERS['imagick'])) {
